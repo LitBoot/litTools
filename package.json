@@ -1,0 +1,14 @@
+{
+  "name": "littools",
+  "version": "1.0.0",
+  "description": "A tiny, wonderful, and powerful plugin for anyu operating system",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "kimsseTheWolf",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^27.1.2"
+  }
+}
