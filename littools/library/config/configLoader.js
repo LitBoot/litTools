@@ -86,10 +86,27 @@ function deleteAnchorFile() {
     fs.rmSync(path.join(defaultConfigFileLocation, "anchor.json"))
 }
 
+/**
+ * Return the location and the content of the config file. Return undefined if cannot find the file.
+ * @returns {object} location{string}, content{string}
+ */
+function readConfigFileSync() {
+    try {
+        // Try to open the anchor file first
+        let anchorFileContent = fse.readJSONFile(path.join(defaultConfigFileLocation, "anchor.json"))
+        // Try to read the config file content
+        let configFileContent = fse.readJSONFile(path.join(anchorFileContent["config"], "config.json"))
+        return {"location": anchorFileContent["config"], "content": configFileContent}
+    } catch (error) {
+        return { "location": undefined, "content": undefined }
+    }
+}
+
 module.exports = {
     defaultConfigFileLocation,
     checkIsConfigFileExists,
     createAnchorFile,
     createConfigFile,
-    deleteAnchorFile
+    deleteAnchorFile,
+    readConfigFileSync
 }

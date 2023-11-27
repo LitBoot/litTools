@@ -33,7 +33,7 @@ app.whenReady().then(() => {
         tray.popUpContextMenu(trayContextMenu)
     })
     
-    // check first
+    // Pre-launch functions needs to be exected here
     let result = prelaunchCheck.prelaunchCheck()
     if (!result) {
         app.quit()
