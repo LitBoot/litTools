@@ -48,6 +48,7 @@ function checkConfig() {
             return false
         }
     }
+    return true
 }
 
 function prelaunchCheck() {

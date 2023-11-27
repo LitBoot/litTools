@@ -55,7 +55,7 @@ function checkIsConfigFileExists() {
  */
 function createAnchorFile(configFileLoc) {
     let content = anchorFileTemplate
-    content.config = path.join(configFileLoc, "config.json")
+    content.config = path.join(configFileLoc)
     // Create the folder first
     if (!fs.existsSync(locationsService.getInstallBaseLocation())) {
         fs.mkdirSync(locationsService.getInstallBaseLocation())
