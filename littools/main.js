@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, Tray, Menu } = require('electron')
 const prelaunchCheck = require("./library/prelaunchEvents/prelaunch")
 
 const createWindow = () => {
@@ -11,6 +11,27 @@ const createWindow = () => {
 }
 
 app.whenReady().then(() => {
+
+    // Create tray
+    const tray = new Tray("./icon/icon.png")
+    tray.setToolTip("LitTools")
+    const trayContextMenu = Menu.buildFromTemplate([
+        {
+            label: "打开设置",
+        },
+        {
+            label: "退出LitTools",
+            click: ()=>{
+                app.quit()
+            }
+        }
+    ])
+    tray.on("click", () => {
+        console.log("Open mini panel")
+    })
+    tray.on("right-click", ()=>{
+        tray.popUpContextMenu(trayContextMenu)
+    })
     
     // check first
     let result = prelaunchCheck.prelaunchCheck()

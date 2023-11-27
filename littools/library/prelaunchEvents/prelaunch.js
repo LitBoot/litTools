@@ -6,7 +6,7 @@ function checkConfig() {
     if (!result.isExists) {
         if (result.missingType === "anchor") {
             let result = dialog.showMessageBoxSync({
-                message: "貌似这是您第一次启动LitTools，您希望将插件与配置文件一同放置在默认位置（C:\\Users\\<用户名>\\litTools），还是您想选择一个其他的位置放置配置与插件文件？",
+                message: "貌似这是您第一次启动LitTools，您希望将插件与配置文件一同放置在默认位置，或您想选择一个其他的位置放置配置与插件文件？",
                 type: "warning",
                 buttons: ["放在默认位置", "放在其他位置"]
             })
