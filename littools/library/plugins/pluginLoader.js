@@ -3,11 +3,7 @@ const configLoader = require("../config/configLoader")
 const fs = require("fs")
 const fse = require("../fs/fsExtends")
 const path = require("path")
-
-/**
- * All loaded plugins will enter this array after the program runs
- */
-let pluginList = []
+const public = require("./pluginPublicSpace")
 
 let pluginInfoTemplate = {
     "name": "",
@@ -62,7 +58,7 @@ function createPluginFolder() {
  * System will *always* update the data in the memory first, and then write it into the disk
  */
 function updatePluginsFile() {
-    fse.writeJSONFile(pluginFileLocation, pluginList)
+    fse.writeJSONFile(pluginFileLocation, public.pluginList)
 }
 
 /**
@@ -71,7 +67,31 @@ function updatePluginsFile() {
  * This will forcely override the data in the memory. Please be careful while using this function
  */
 function loadPluginsFile() {
-    pluginList = fse.readJSONFile(pluginFileLocation)                                                                 
+    public.pluginList = fse.readJSONFile(pluginFileLocation)                                                                 
+}
+
+/**
+ * Validate a plugin 
+ * Include validation process.
+ * @param {string} pluginUUID The UUID of the plugin
+ * @returns {object} IsValid {"isValid": `boolean`, "msg": `""`}
+ */
+function validatePlugin(pluginUUID) {
+    // Find whether the plugin folder named with the plugin UUID exists
+    if (!fs.existsSync(path.join(pluginFolderLocation, pluginUUID))) {
+        return {"isValid": false, "msg": "Unable to read plugin directory. Dir not exists!"}
+    }
+    // Check and validate the mamifest.json file
+    if (!fs.existsSync(path.join(pluginFolderLocation, pluginUUID, "mainfest.json"))) {
+        return { "isValid": false, "msg": "Unable to read plugin manifest data. File does not exists" }
+    }
+    // Check whether the uuid was valid
+    let uuid = fse.readJSONFile(path.join(pluginFolderLocation, pluginUUID, "manifest.json"))["id"]
+    if (uuid !== pluginUUID) {
+        return { "isValid": false, "msg": "Unable to load plugin. Invalid UUID Validation" }
+    }
+    // Success
+    return { "isValid": true, "msg": "Success" }
 }
 
 /**
@@ -85,6 +105,25 @@ function prelaunch() {
     createPluginFile()
     createPluginFolder()
 
-    // plugin loader
-
+    // Load every plugin and check the plugins
+    public.pluginList = fse.readJSONFile(pluginFileLocation)
+    // Iterate through and validate plugins
+    console.log("Plugin Initialization Process Start...")
+    let passCounter = 0, failedCounter = 0
+    for (let i = 0; i < public.pluginList.length; i++) {
+        let result = validatePlugin(public.pluginList[i]["id"])
+        if (result["isValid"]) {
+            console.log("Plugin: " + public.pluginList[i]["name"] + " has been initialized!")
+            passCounter += 1;
+        }
+        else {
+            // Disable this plugin
+            public.pluginList[i]["enabled"] = false
+            console.log("Plugin: " + public.pluginList[i]["name"] + " cannot be initialized and disabled. Reason: " + result["msg"])
+            failedCounter += 1;
+        }
+    }
+    // Print the summary and save to files
+    console.log("Plugin Initialization finished! Success: " + passCounter + " , Failed: " + failedCounter + " , Total: " + public.pluginList.length)
+    
 }

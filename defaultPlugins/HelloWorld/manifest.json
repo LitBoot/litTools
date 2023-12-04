@@ -1,0 +1,17 @@
+{
+    "package_version": "v1.0",
+    "name": "HelloWorldPlugin",
+    "id": "015adcd1-deb6-41a2-a070-35843eb5c669",
+    "developer": "kimsseTheWolf",
+    "description": "",
+    "version": "",
+    "website": "https://github.com/kimsseTheWolf",
+    "license": "",
+    "properties": {
+        "page": "",
+        "preload": "",
+        "width": 300,
+        "height": 400,
+        "borderless": true
+    }
+}

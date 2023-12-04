@@ -1,13 +1,29 @@
 const { app, BrowserWindow, Tray, Menu } = require('electron')
 const prelaunchCheck = require("./library/prelaunchEvents/prelaunch")
+const windowManager = require("./library/windows/windowManager")
+const path = require("path")
 
-const createWindow = () => {
-    const win = new BrowserWindow({
-        width: 400,
-        height: 300
-    })
+/**
+ * @type {BrowserWindow}
+ */
+let win = null
+const windowID = {
+    "main": "litTools:mainWindow",
+}
 
-    win.loadFile('./dist/index.html')
+const createMainWindow = () => {
+    windowManager.createNewWindow(
+        {
+            width: 300,
+            height: 400,
+            frame: false,
+            webPreferences: {
+                nodeIntegration: true
+            }
+        },
+        path.join(__dirname, "interface", "main.html"),
+        windowID.main
+    )
 }
 
 app.whenReady().then(() => {
@@ -17,12 +33,24 @@ app.whenReady().then(() => {
     tray.setToolTip("LitTools")
     const trayContextMenu = Menu.buildFromTemplate([
         {
+            label: "打开主界面",
+            click: () => {
+                createMainWindow()
+            }
+        },
+        {
             label: "打开设置",
         },
         {
             label: "退出LitTools",
             click: ()=>{
                 app.quit()
+            }
+        },
+        {
+            label: "Print Window Manager Status",
+            click: ()=>{
+                console.log(windowManager.windowsList)
             }
         }
     ])
@@ -41,13 +69,20 @@ app.whenReady().then(() => {
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
-            createWindow()
+            createMainWindow()
         }
     })
 })
 
 app.on('window-all-closed', () => {
-    if (process.platform !== 'darwin') {
-        app.quit()
-    }
+    console.log("All windows closed but app keep running")
+    console.log(windowManager.windowsList)
 })
+
+
+/**
+ * Handle all IPC events for the app. In order to process the win it will under the main file
+ */
+function ipcHandler() {
+
+}
