@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Tray, Menu } = require('electron')
+const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron')
 const prelaunchCheck = require("./library/prelaunchEvents/prelaunch")
 const windowManager = require("./library/windows/windowManager")
 const path = require("path")
@@ -18,7 +18,8 @@ const createMainWindow = () => {
             height: 400,
             frame: false,
             webPreferences: {
-                nodeIntegration: true
+                nodeIntegration: true,
+                preload: path.join(__dirname, "preload.js")
             }
         },
         path.join(__dirname, "interface", "main.html"),
@@ -72,6 +73,9 @@ app.whenReady().then(() => {
             createMainWindow()
         }
     })
+
+    // Handle invoke events
+    ipcHandler()
 })
 
 app.on('window-all-closed', () => {
@@ -84,5 +88,9 @@ app.on('window-all-closed', () => {
  * Handle all IPC events for the app. In order to process the win it will under the main file
  */
 function ipcHandler() {
-
+    ipcMain.handle("windowEvent:triggerOnClose", (event, windowID)=>{
+        console.log(windowID)
+        windowManager.closeWindow(windowID)
+        console.log("Windows event has been handled!")
+    })
 }

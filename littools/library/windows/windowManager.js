@@ -1,4 +1,5 @@
-const {BrowserWindow} = require("electron")
+const {BrowserWindow} = require("electron");
+const e = require("express");
 
 /**
  * The main list of all windows except main, about, and settings
@@ -13,6 +14,14 @@ let windowsList = []
  * @param {String} pageID ID of the page
  */
 const createNewWindow = (browserWindowProperties, htmlLocation, pageID) => {
+    // Check whether the window has been existed
+    let sameWindow = false;
+    for (let i = 0; i < windowsList.length; i++) {
+        if (windowsList[i].id === pageID) {
+            console.log("Same window detected.")
+            return
+        }
+    }
     // append to the array
     let length = windowsList.push({
         "id": pageID,
@@ -34,7 +43,7 @@ const createNewWindow = (browserWindowProperties, htmlLocation, pageID) => {
 const closeWindow = (pageID) => {
     let result = false
     for (let i = 0; i < windowsList.length; i++) {
-        if (windowsList[i].id === result) {
+        if (windowsList[i].id === pageID) {
             // close the window
             windowsList[i].window.close()
             // delete from the array
@@ -55,7 +64,7 @@ const closeWindow = (pageID) => {
 const wipeOutWindow = (pageID) => {
     let result = false
     for (let i = 0; i < windowsList.length; i++) {
-        if (windowsList[i].id === result) {
+        if (windowsList[i].id === pageID) {
             // delete from the array
             windowsList.splice(i, 1)
             // quit
