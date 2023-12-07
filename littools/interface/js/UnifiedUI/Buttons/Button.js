@@ -9,12 +9,13 @@ export class BasicButton {
      * @param {String} size Indicate the size of the button
      * @type {"normal" | "big" | "small"}
      * @param {String} style Indicate the style of the button. Solid or Empty.
-     * @type {"solid" | "empty"}
+     * @type {"solid" | "empty" | "pretty"}
      * @param {String} parentID The ID name for the parent
      * @param {Function} onClickHandler The function the button will do when on click.
      */
     constructor(content, isDanger, size="normal", style, parentID) {
         this.baseElement = document.createElement("div")
+        this.objectDisplay = "flex"
         this.baseTextElement = document.createTextNode(content)
         // define basic styles of a button
         let text = ""
@@ -57,12 +58,17 @@ export class BasicButton {
         let mainColorInRGB = hexToRgb(mainColor)
         let coverMeshColorEmpty = "rgba("+mainColorInRGB.r+","+mainColorInRGB.g+","+mainColorInRGB.b+","+mainColorGroup.transparentAlpha+")"
         let coverMeshColorSolid = "rgba(" + mainColorInRGB.r - 40 + "," + mainColorInRGB.g - 40 + "," + mainColorInRGB.b - 40 + ", 1)"
+        let coverMeshColorPretty = `rgba(255, 255, 255, ${mainColorGroup.transparentAlpha + 0.1})`
         if (style === "empty") {
             this.baseElement.style.borderStyle = "solid"
             this.baseElement.style.borderWidth = "1px"
             this.baseElement.style.backgroundColor = "rgba(0,0,0,0)"
             this.baseElement.style.borderColor = mainColor                   
             this.baseElement.style.color = mainColor
+        }
+        else if (style === "pretty") {
+            this.baseElement.style.backgroundColor = `rgba(255, 255, 255, ${mainColorGroup.transparentAlpha})`
+            this.baseElement.style.color = "white"
         }
         else {
             this.baseElement.style.backgroundColor = mainColor
@@ -75,6 +81,9 @@ export class BasicButton {
             if (style === "empty") {
                 this.baseElement.style.backgroundColor = coverMeshColorEmpty
             }
+            else if (style === "pretty") {
+                this.baseElement.style.backgroundColor = coverMeshColorPretty
+            }
             else {
                 this.baseElement.style.backgroundColor = coverMeshColorSolid
             }
@@ -82,6 +91,9 @@ export class BasicButton {
         this.baseElement.addEventListener("mouseout", ()=>{
             if (style === "empty") {
                 this.baseElement.style.backgroundColor = "rgba(0,0,0,0)"
+            }
+            else if (style === "pretty") {
+                this.baseElement.style.backgroundColor = `rgba(255, 255, 255, ${mainColorGroup.transparentAlpha})`
             }
             else {
                 this.baseElement.style.backgroundColor = mainColor

@@ -1,4 +1,5 @@
 import {BasicButton} from "./UnifiedUI/Buttons/Button.js"
+import {Segment} from "./UnifiedUI/Menus/Segments.js"
 let closeButton = document.getElementById("closeBtn")
 
 let counter = 0;
@@ -8,10 +9,23 @@ closeButton.onclick = () => {
     console.log("Event Triggered")
 }
 
-let testButton = new BasicButton("This is a button", true, "Normal", "solid", "listView")
-let test2Button = new BasicButton("This is another button", false, "small", "solid", "listView")
-
-test2Button.baseElement.onclick = ()=>{
-    counter++
-    test2Button.modifyText(counter)
-}
+let naviSegment = new Segment([
+    {
+        "id": "plugins",
+        "name": "Plugins",
+        "objectID": "pluginList",
+        "objectDisplay": "flex"
+    },
+    {
+        "id": "scripts",
+        "name": "Scripts",
+        "objectID": "scriptList",
+        "objectDisplay": "flex"
+    },
+    {
+        "id": "others",
+        "name": "Others",
+        "objectID": "otherList",
+        "objectDisplay": "flex"
+    },
+], "plugins", "pageWidth", "naviSegmentLoc")

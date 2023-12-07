@@ -1,6 +1,6 @@
 // https://zhuanlan.zhihu.com/p/469763011#:~:text=%E4%BD%BF%E7%94%A8JS%E7%94%9F%E6%88%90UUID%E7%9A%84%E5%B8%B8%E7%94%A8%E6%96%B9%E6%B3%95%201%20%E4%B8%80%E3%80%81%E4%BD%BF%E7%94%A8Math.random%20%28%29%E3%80%82%202,%E4%BA%8C%E3%80%81%E4%BD%BF%E7%94%A8crypto%E6%8F%90%E4%BE%9B%E7%9A%84randomUUID%E6%96%B9%E6%B3%95%203%20%E4%B8%89%E3%80%81%E4%BD%BF%E7%94%A8crypto%E6%8F%90%E4%BE%9B%E7%9A%84getRandomValues%E6%96%B9%E6%B3%95%204%20%E4%B8%89%E3%80%81%E5%AE%9E%E9%99%85%E5%BC%80%E5%8F%91%E4%B8%AD%E6%8E%A8%E8%8D%90%E7%9A%84%E6%96%B9%E6%B3%95
 
-function getUuid() {
+export function getUuid() {
     if (typeof crypto === 'object') {
         if (typeof crypto.randomUUID === 'function') {
             return crypto.randomUUID();
