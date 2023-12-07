@@ -1,5 +1,5 @@
 import {BasicButton} from "./UnifiedUI/Buttons/Button.js"
-import {Segment} from "./UnifiedUI/Menus/Segments.js"
+import {Segment, SimpleSegment} from "./UnifiedUI/Menus/Segments.js"
 let closeButton = document.getElementById("closeBtn")
 
 let counter = 0;
@@ -29,3 +29,16 @@ let naviSegment = new Segment([
         "objectDisplay": "flex"
     },
 ], "plugins", "pageWidth", "naviSegmentLoc")
+
+let pluginListVSwitch = new SimpleSegment([
+    {
+        "id": "list",
+        "name": "List",
+    },
+    {
+        "id": "grid",
+        "name": "Grid",
+    }
+], "list", "fitContent", "pluginOperationList")
+
+let addNewPluginBtn = new BasicButton("Install Plugin", false, "normal", "pretty", "pluginOperationList")

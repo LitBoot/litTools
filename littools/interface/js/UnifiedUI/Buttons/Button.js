@@ -23,7 +23,8 @@ export class BasicButton {
         this.baseElement.style.flexDirection = "row"
         this.baseElement.style.alignItems = "center"
         this.baseElement.style.justifyContent = "center"
-        this.baseElement.style.margin = mainBorderStyle.margin + "px",
+        this.baseElement.style.margin = mainBorderStyle.margin + "px"
+        this.baseElement.style.width = "fit-content"
         this.baseElement.style.cursor = "pointer"
         this.baseElement.style.borderRadius = mainBorderStyle.borderRadius + "px"
         this.baseElement.style.transition = "all 0.1s"

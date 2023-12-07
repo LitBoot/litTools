@@ -14,8 +14,8 @@ const windowID = {
 const createMainWindow = () => {
     windowManager.createNewWindow(
         {
-            width: 300,
-            height: 400,
+            width: 400,
+            height: 650,
             frame: false,
             webPreferences: {
                 nodeIntegration: true,
