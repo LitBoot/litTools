@@ -1,0 +1,35 @@
+{
+    "version": "v1",
+    "author": "",
+    "script": [
+        {
+            "action": "create",
+            "type": "var",
+            "name": "outputString",
+            "value": "Hello, LitTools Script!"
+        },
+        {
+            "action": "create",
+            "type": "var",
+            "name": "returnedValue",
+            "value": ""
+        },
+        {
+            "action": "create",
+            "type": "func",
+            "value": [
+                {
+                    "action": "execute",
+                    "type": "func",
+                    "name": "print",
+                    "params": ["$outputString$"],
+                    "returns": "$returnedValue$"
+                },
+                {
+                    "action": "return",
+                    "value": ""
+                }
+            ]
+        }
+    ]
+}

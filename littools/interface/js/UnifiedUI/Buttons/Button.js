@@ -7,12 +7,13 @@ export class BasicButton {
      * @param {String} content Content that exists in the button
      * @param {Boolean} isDanger Whether display the button in danger mode
      * @param {String} size Indicate the size of the button
+     * @type {"normal" | "big" | "small"}
      * @param {String} style Indicate the style of the button. Solid or Empty.
      * @type {"solid" | "empty"}
      * @param {String} parentID The ID name for the parent
      * @param {Function} onClickHandler The function the button will do when on click.
      */
-    constructor(content, isDanger, size="Normal", style, parentID, onClickHandler) {
+    constructor(content, isDanger, size="normal", style, parentID) {
         this.baseElement = document.createElement("div")
         this.baseTextElement = document.createTextNode(content)
         // define basic styles of a button
@@ -21,11 +22,27 @@ export class BasicButton {
         this.baseElement.style.flexDirection = "row"
         this.baseElement.style.alignItems = "center"
         this.baseElement.style.justifyContent = "center"
-        this.baseElement.style.padding = mainBorderStyle.padding + "px"
         this.baseElement.style.margin = mainBorderStyle.margin + "px",
         this.baseElement.style.cursor = "pointer"
         this.baseElement.style.borderRadius = mainBorderStyle.borderRadius + "px"
         this.baseElement.style.transition = "all 0.1s"
+        this.baseElement.style.userSelect = "none"
+        this.baseElement.style.webkitUserSelect = "none"
+
+        // Apply different size
+        if (size === "normal") {
+            this.baseElement.style.padding = mainBorderStyle.padding + "px"
+        }
+        else if (size === "small") {
+            this.baseElement.style.padding = mainBorderStyle.padding - 2 + "px"
+            this.baseElement.style.fontSize = "12px"
+        }
+        else if (size === "big") {
+            this.baseElement.style.padding = mainBorderStyle.padding + 2 + "px"
+        }
+        else {
+            this.baseElement.style.padding = mainBorderStyle.padding + "px"
+        }
 
         // Apply dangerous color
         let mainColor = undefined
@@ -69,9 +86,6 @@ export class BasicButton {
             else {
                 this.baseElement.style.backgroundColor = mainColor
             }
-        })
-        this.baseElement.addEventListener("click", ()=>{
-            onClickHandler
         })
 
         // add to the page
