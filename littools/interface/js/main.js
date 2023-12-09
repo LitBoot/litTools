@@ -1,5 +1,6 @@
 import {BasicButton} from "./UnifiedUI/Buttons/Button.js"
 import {Segment, SimpleSegment} from "./UnifiedUI/Menus/Segments.js"
+import {createNewImg} from "./UnifiedUI/imgUtil.js"
 let closeButton = document.getElementById("closeBtn")
 
 let counter = 0;
@@ -33,7 +34,7 @@ let naviSegment = new Segment([
 let pluginListVSwitch = new SimpleSegment([
     {
         "id": "list",
-        "name": "List",
+        "name": createNewImg("./assets/icons/list.svg"),
     },
     {
         "id": "grid",

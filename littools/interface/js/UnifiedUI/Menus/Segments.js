@@ -47,13 +47,20 @@ class SegmentButton {
         })
 
         // append text
-        this.baseTextElement = document.createTextNode(content)
+        this.baseTextElement = null
+        if (typeof content === "string") {
+            this.baseTextElement = document.createTextNode(content)
+        }
+        else {
+            // direct append the object
+            this.baseTextElement = content
+        }
         this.baseElement.appendChild(this.baseTextElement)
     }
 
     setActive() {
         this.baseElement.style.backgroundColor = "rgba(255,255,255,1)"
-        this.baseElement.style.color = "rgba(0,0,0,1)"
+        this.baseElement.style.color = "black"
         this.isActive = true;
         // console.log("Object set up active!" + this.buttonID)
     }
@@ -214,7 +221,7 @@ export class Segment {
 export class SimpleSegment {
     /**
      * Create a segment using the information
-     * @param {Array<{"id": String, "name": String}>} content The list of items that will display in the segment control.
+     * @param {Array<{"id": String, "name": Any}>} content The list of items that will display in the segment control.
      * @param {String} defaultID The default selected ID for the segment control
      * @param {String} width Define the width of the segment control
      * @type {"fitContent" | "pageWidth"}

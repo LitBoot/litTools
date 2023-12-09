@@ -53,3 +53,7 @@ body::-webkit-scrollbar {
     display: flex;
     flex-direction: row;
 }
+
+.svgImg {
+    fill: currentColor
+}
