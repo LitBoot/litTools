@@ -16,7 +16,14 @@ export class BasicButton {
     constructor(content, isDanger, size="normal", style, parentID) {
         this.baseElement = document.createElement("div")
         this.objectDisplay = "flex"
-        this.baseTextElement = document.createTextNode(content)
+        // Create Text
+        this.baseTextElement = null
+        if (typeof content === "string") {
+            this.baseTextElement = document.createTextNode(content)
+        }
+        else {
+            this.baseTextElement = content
+        }
         // define basic styles of a button
         let text = ""
         this.baseElement.style.display = "flex"

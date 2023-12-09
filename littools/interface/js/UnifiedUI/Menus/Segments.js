@@ -7,6 +7,7 @@ class SegmentButton {
         this.isActive = false;
         this.inactiveBG = `rgba(255,255,255,0)`
         this.buttonID = `${getUuid()}-SegmentButton`
+        this.content = content // for detecting the original type of the button
 
         this.baseElement.style.margin = `3px`
         this.baseElement.style.padding = `${mainBorderStyle.padding}px`
@@ -58,10 +59,28 @@ class SegmentButton {
         this.baseElement.appendChild(this.baseTextElement)
     }
 
+    refreshBtnContent() {
+        let prevBaseTextElement = this.baseTextElement
+        if (typeof content === "string") {
+            this.baseTextElement = document.createTextNode(content)
+        }
+        else {
+            // direct append the object
+            this.baseTextElement = content
+        }
+        this.baseElement.removeChild(prevBaseTextElement)
+        this.baseElement.appendChild(this.baseTextElement)
+    }
+
     setActive() {
         this.baseElement.style.backgroundColor = "rgba(255,255,255,1)"
         this.baseElement.style.color = "black"
         this.isActive = true;
+        if (typeof this.content !== "string") {
+            // modify svg color
+            console.log(this.content)
+            this.baseTextElement.classList.toggle("svgHighlightColor")
+        }
         // console.log("Object set up active!" + this.buttonID)
     }
 
@@ -70,6 +89,10 @@ class SegmentButton {
         this.baseElement.style.color = "white"
         this.isActive = false;
         // console.log("Object set up inactive!" + this.buttonID)
+        if (typeof this.content !== "string") {
+            // modify svg color
+            this.baseTextElement.classList.remove("svgHighlightColor")
+        }
     }
 }
 

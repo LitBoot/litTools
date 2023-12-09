@@ -54,6 +54,6 @@ body::-webkit-scrollbar {
     flex-direction: row;
 }
 
-.svgImg {
-    fill: currentColor
+.svgHighlightColor {
+    filter: invert(1); /*Thank you ChatGPT!*/
 }

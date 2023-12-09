@@ -38,8 +38,8 @@ let pluginListVSwitch = new SimpleSegment([
     },
     {
         "id": "grid",
-        "name": "Grid",
+        "name": createNewImg("./assets/icons/grid.svg"),
     }
 ], "list", "fitContent", "pluginOperationList")
 
-let addNewPluginBtn = new BasicButton("Install Plugin", false, "normal", "pretty", "pluginOperationList")
+let addNewPluginBtn = new BasicButton(createNewImg("./assets/icons/add.svg", 20), false, "normal", "pretty", "pluginOperationList")
