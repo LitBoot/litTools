@@ -1,6 +1,7 @@
 import {BasicButton} from "./UnifiedUI/Buttons/Button.js"
 import {Segment, SimpleSegment} from "./UnifiedUI/Menus/Segments.js"
 import {createNewImg} from "./UnifiedUI/imgUtil.js"
+import {AppGallery} from "./UnifiedUI/Menus/AppGallery.js"
 let closeButton = document.getElementById("closeBtn")
 
 let counter = 0;
@@ -31,15 +32,5 @@ let naviSegment = new Segment([
     },
 ], "plugins", "pageWidth", "naviSegmentLoc")
 
-let pluginListVSwitch = new SimpleSegment([
-    {
-        "id": "list",
-        "name": createNewImg("./assets/icons/list.svg"),
-    },
-    {
-        "id": "grid",
-        "name": createNewImg("./assets/icons/grid.svg"),
-    }
-], "list", "fitContent", "pluginOperationList")
-
 let addNewPluginBtn = new BasicButton(createNewImg("./assets/icons/add.svg", 20), false, "normal", "pretty", "pluginOperationList")
+let appGallery = new AppGallery(115, "appGalleryLoc")
