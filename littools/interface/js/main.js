@@ -34,3 +34,6 @@ let naviSegment = new Segment([
 
 let addNewPluginBtn = new BasicButton(createNewImg("./assets/icons/add.svg", 20), false, "normal", "pretty", "pluginOperationList")
 let appGallery = new AppGallery(115, "appGalleryLoc")
+for (let i = 0; i < 75; i++) {
+    appGallery.appendElement(createNewImg("./assets/icons/add.svg"), "Test Object", "id")
+}
