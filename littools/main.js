@@ -1,6 +1,7 @@
 const { app, BrowserWindow, Tray, Menu, ipcMain } = require('electron')
 const prelaunchCheck = require("./library/prelaunchEvents/prelaunch")
 const windowManager = require("./library/windows/windowManager")
+const pluginLoader = require("./library/plugins/pluginLoader")
 const path = require("path")
 
 /**
@@ -68,6 +69,7 @@ app.whenReady().then(() => {
     if (!result) {
         app.quit()
     }
+    pluginLoader.prelaunch()
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {

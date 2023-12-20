@@ -1,0 +1,20 @@
+{
+    "name": "testPlugin",
+    "developer": "",
+    "version": [1,1,0],
+    "description": "",
+    "id": "015adcd1-deb6-41a2-a070-35843eb5c669",
+    "requirements": [
+        "vue"
+    ],
+    "scriptBinding": [
+        {
+            "name": "printHelloWorld",
+            "parameters":{
+                "name": "string",
+                "age": "number"
+            },
+            "description": "Print out Hello World onto screen"
+        }
+    ]
+}

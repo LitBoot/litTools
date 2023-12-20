@@ -82,7 +82,8 @@ function validatePlugin(pluginUUID) {
         return {"isValid": false, "msg": "Unable to read plugin directory. Dir not exists!"}
     }
     // Check and validate the mamifest.json file
-    if (!fs.existsSync(path.join(pluginFolderLocation, pluginUUID, "mainfest.json"))) {
+    if (!fs.existsSync(path.join(pluginFolderLocation, pluginUUID, "manifest.json"))) {
+        console.log(path.join(pluginFolderLocation, pluginUUID, "mainfest.json"))
         return { "isValid": false, "msg": "Unable to read plugin manifest data. File does not exists" }
     }
     // Check whether the uuid was valid
@@ -125,5 +126,36 @@ function prelaunch() {
     }
     // Print the summary and save to files
     console.log("Plugin Initialization finished! Success: " + passCounter + " , Failed: " + failedCounter + " , Total: " + public.pluginList.length)
+    updatePluginsFile()
     
+}
+
+/**
+ * Re-initialize all plugins and update to files
+ */
+function revalidatePlugins() {
+    // Iterate through and validate plugins
+    console.log("Plugin Initialization Process Start...")
+    let passCounter = 0, failedCounter = 0
+    for (let i = 0; i < public.pluginList.length; i++) {
+        let result = validatePlugin(public.pluginList[i]["id"])
+        if (result["isValid"]) {
+            console.log("Plugin: " + public.pluginList[i]["name"] + " has been initialized!")
+            passCounter += 1;
+        }
+        else {
+            // Disable this plugin
+            public.pluginList[i]["enabled"] = false
+            console.log("Plugin: " + public.pluginList[i]["name"] + " cannot be initialized and disabled. Reason: " + result["msg"])
+            failedCounter += 1;
+        }
+    }
+    // Print the summary and save to files
+    console.log("Plugin Initialization finished! Success: " + passCounter + " , Failed: " + failedCounter + " , Total: " + public.pluginList.length)
+    updatePluginsFile()
+}
+
+module.exports = {
+    prelaunch,
+    revalidatePlugins
 }

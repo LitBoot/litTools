@@ -12,12 +12,13 @@
   },
   "dependencies": {
     "@vitejs/plugin-legacy": "^5.2.0",
+    "compressing": "^1.10.0",
     "terser": "^5.24.0",
     "vue": "^3.3.4"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.4.0",
     "electron": "^27.1.2",
-    "vite": "^4.4.11"
+    "vite": "^5.0.0"
   }
 }
